@@ -23,14 +23,21 @@ const server = http.createServer((req, res) => {
       const queryParams1 = queryParams.query; // Get query parameters
       const pathName = queryParams.pathname; // Get path
       const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
-      console.log(queryParams, queryParams1, pathName);
+      console.log(queryParams.name, JSON.stringify(queryParams1), pathName);
       //   const apiResponse = await makeApiCall(queryParams);
       //   res.writeHead(200, { "Content-Type": "application/json" });
       //   res.end(JSON.stringify(apiResponse));
       // Set the response header
-      res.writeHead(200, { "Content-Type": "text/plain" });
+    //   res.writeHead(200, { "Content-Type": "text/plain" });
       // Write some text to the response
-      res.end(`Welcome to ${ip},`);
+    //   res.end(`Welcome to ${ip},`);
+      res.writeHead(200, { "Content-Type": "application/json" });
+      const data  = {
+        "ip": ip,
+        "name":queryParams.name,
+        "object":JSON.stringify(queryParams)
+      }
+     res.end(JSON.stringify(data));
     } catch (error) {
       res.writeHead(500, { "Content-Type": "text/plain" });
       res.end("Error calling API");
@@ -43,9 +50,12 @@ const server = http.createServer((req, res) => {
     const pathName = queryParams.pathname; // Get path
     const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
     console.log(queryParams, queryParams1, pathName);
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    // Write some text to the response
-    res.end(`Welcome to ${ip},`);
+    res.writeHead(200, { "Content-Type": "application/json" });
+    const data  = {
+        "ip": ip,
+        "name":queryParams.name
+      }
+   res.end(JSON.stringify(data));
   }
 });
 
