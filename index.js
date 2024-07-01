@@ -15,18 +15,20 @@ async function makeApiCall(queryParams) {
 // Create a server object
 const server = http.createServer((req, res) => {
   if (req.url.startsWith("/api")) {
-    const queryParams = url.parse(req.url, true).query;
+    // const queryParams = url.parse(req.url, true).query;
     // Get the client's IP address
-    const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
 
     try {
+     const queryParams = url.parse(req.url, true).query;
+     const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+
       //   const apiResponse = await makeApiCall(queryParams);
       //   res.writeHead(200, { "Content-Type": "application/json" });
       //   res.end(JSON.stringify(apiResponse));
       // Set the response header
       res.writeHead(200, { "Content-Type": "text/plain" });
       // Write some text to the response
-      res.end(`Welcome to ${ip}, ${queryparams}`);
+      res.end(`Welcome to ${ip}, ${queryParams}`);
     } catch (error) {
       res.writeHead(500, { "Content-Type": "text/plain" });
       res.end("Error calling API");
