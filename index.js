@@ -19,11 +19,11 @@ const server = http.createServer(async (req, res) => {
     if (req.url.startsWith('/api')) {
         const queryParams = url.parse(req.url, true).query;
 
-        console.log(queryParams)
+        console.log(queryParams, req.ip)
 
         res.writeHead(200, { "Content-Type": "text/plain" });
         // Write some text to the response
-        res.end("Welcome to my simple Node.js app!");
+        res.end(`Welcome to my simple Node.js app!${req.ip}, ${queryParams}`);
     
         // try {
         //   const apiResponse = await makeApiCall(queryParams);
