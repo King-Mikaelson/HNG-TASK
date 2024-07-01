@@ -14,10 +14,7 @@ const axios = require("axios");
 
 // Create a server object
 const server = http.createServer((req, res) => {
-  if (req.url.startsWith("/api")) {
-    // const queryParams = url.parse(req.url, true).query;
-    // Get the client's IP address
-
+  if (req.url.startsWith("/api/hello")) {
     try {
       const queryParams = url.parse(req.url, true).query;
       const queryParams1 = queryParams.query; // Get query parameters
@@ -28,34 +25,24 @@ const server = http.createServer((req, res) => {
       //   res.writeHead(200, { "Content-Type": "application/json" });
       //   res.end(JSON.stringify(apiResponse));
       // Set the response header
-    //   res.writeHead(200, { "Content-Type": "text/plain" });
+      //   res.writeHead(200, { "Content-Type": "text/plain" });
       // Write some text to the response
-    //   res.end(`Welcome to ${ip},`);
+      //   res.end(`Welcome to ${ip},`);
       res.writeHead(200, { "Content-Type": "application/json" });
-      const data  = {
-        "ip": ip,
-        "name":queryParams.name,
-        "object":JSON.stringify(queryParams)
-      }
-     res.end(JSON.stringify(data));
+      const data = {
+        client_ip: ip, // The IP address of the requester
+        location: "New York", // The city of the requester
+        greeting: `Hello, ${queryParams.name}!, the temperature is 11 degrees Celcius in New York`,
+      };
+
+      res.end(JSON.stringify(data));
     } catch (error) {
       res.writeHead(500, { "Content-Type": "text/plain" });
       res.end("Error calling API");
     }
   } else {
-    // Set the response header
-    // Write some text to the response
-    const queryParams = url.parse(req.url, true).query;
-    const queryParams1 = queryParams.query; // Get query parameters
-    const pathName = queryParams.pathname; // Get path
-    const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
-    console.log(queryParams, queryParams1, pathName);
-    res.writeHead(200, { "Content-Type": "application/json" });
-    const data  = {
-        "ip": ip,
-        "name":queryParams.name
-      }
-   res.end(JSON.stringify(data));
+    res.writeHead(200, { "Content-Type": "text/plain" });
+    res.end("Welcome to my simple Node.js app!");
   }
 });
 
