@@ -21,7 +21,13 @@ const server = http.createServer(async (req, res) => {
       const data = {
         client_ip: ip, // The IP address of the requester
         location: apiResponse.location.region, // The city of the requester
-        greeting: `Hello, ${queryParams.visitor_name}!, the temperature is ${apiResponse.current.temp_c} degrees Celcius in ${apiResponse.location.region}`,
+        greeting: `Hello, ${
+          queryParams.visitor_name
+            ? queryParams.visitor_name
+            : "Enter your name with params ?visitor_name=your_name"
+        }!, the temperature is ${
+          apiResponse.current.temp_c
+        } degrees Celcius in ${apiResponse.location.region}`,
       };
 
       res.end(JSON.stringify(data));
