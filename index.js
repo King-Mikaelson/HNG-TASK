@@ -32,7 +32,7 @@ const server = http.createServer((req, res) => {
       const data = {
         client_ip: ip, // The IP address of the requester
         location: "New York", // The city of the requester
-        greeting: `Hello, ${queryParams.name}!, the temperature is 11 degrees Celcius in New York`,
+        greeting: `Hello, ${queryParams.visitor_name}!, the temperature is 11 degrees Celcius in New York`,
       };
 
       res.end(JSON.stringify(data));
