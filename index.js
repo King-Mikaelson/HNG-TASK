@@ -20,9 +20,13 @@ const server = http.createServer(async(req, res) => {
         const queryParams = url.parse(req.url, true).query;
     
         try {
-          const apiResponse = await makeApiCall(queryParams);
-          res.writeHead(200, { "Content-Type": "application/json" });
-          res.end(JSON.stringify(apiResponse));
+        //   const apiResponse = await makeApiCall(queryParams);
+        //   res.writeHead(200, { "Content-Type": "application/json" });
+        //   res.end(JSON.stringify(apiResponse));
+         // Set the response header
+         res.writeHead(200, { "Content-Type": "text/plain" });
+         // Write some text to the response
+         res.end(`Welcome to my simple Node.js app! ${req.ip}, queryparams`);
         } catch (error) {
           res.writeHead(500, { "Content-Type": "text/plain" });
           res.end("Error calling API");
