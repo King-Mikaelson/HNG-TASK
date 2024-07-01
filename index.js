@@ -13,7 +13,7 @@ async function makeApiCall(queryParams) {
 }
 
 // Create a server object
-const server = http.createServer(async (req, res) => {
+const server = http.createServer((req, res) => {
   if (req.url.startsWith("/api")) {
     const queryParams = url.parse(req.url, true).query;
     // Get the client's IP address
